@@ -5,6 +5,13 @@ html lang="en"
     meta name="viewport" content="width=device-width, initial-scale=1.0"/
     link rel="stylesheet" href="/style.css?#{Time.now.to_i}"/
     title Todo
-  body 
-    img src="/img/glhf.png" alt="glhf"/
+  body style="background: yellow" 
+
+  
+  nav style="background: white"
+        h1 <a href="/tasks">all</a> <a href="">complete</a> <a href="/incomplete">incomplete</a>
+
+
+
+  section
     ==yield

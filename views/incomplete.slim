@@ -1,0 +1,29 @@
+img src="/img/IMG_7460.jpg" alt="gamer" style="width:1250px; height: 300px"
+
+.container 
+  .left 
+    h1 Gör det här 
+    - @databased.each do |todos|
+      h2 style="background: cyan;"
+        a href="/tasks/#{todos["id"]}/edit" 
+            = todos["name"]
+      h3 = todos["description"]
+      form action="/tasks/#{todos['id']}/delete" method="post"
+        input type="submit" value="Remove task"
+      hr
+      form action="/tasks/#{todos['id']}/toggle" method="post"
+        input type="hidden" name="_method" value="patch"
+        input type="checkbox" 
+            name="state"
+            value="1" 
+            checked=todos['state'] 
+            onchange="this.form.submit()"
+      hr
+  .right 
+    h1 gör det här
+    .ContainerForm
+        form action="/tasks" method="post"
+         input name="titel" placeholder="Task" type="text"
+         input name="beskrivning" placeholder="beskrivning" type="text"
+         input type="checkbox" name="kategori"
+         input type="submit" value="add"

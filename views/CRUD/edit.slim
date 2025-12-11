@@ -1,0 +1,6 @@
+h1 do this  
+
+form action="/tasks/#{@this_task["id"]}/update" method="post"
+    input type="text" name="name" value="#{@this_task["name"]}"
+    input type="text" name="description" value="#{@this_task["description"]}"
+    input type="submit" value="submit"

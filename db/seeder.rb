@@ -1,6 +1,6 @@
 require 'sqlite3'
 
-db = SQLite3::Database.new("todos.db")
+db = SQLite3::Database.new("db/todos.db")
 
 
 def seed!(db)
@@ -16,19 +16,33 @@ end
 
 def drop_tables(db)
   db.execute('DROP TABLE IF EXISTS todos')
+  db.execute('DROP TABLE IF EXISTS categories')
+  db.execute('DROP TABLE IF EXISTS id_todos_cat')
 end
 
 def create_tables(db)
   db.execute('CREATE TABLE todos (
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               name TEXT NOT NULL, 
-              description TEXT)')
+              description TEXT,
+              state BOOLEAN)')
+  db.execute('CREATE TABLE categories (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              name TEXT NOT NULL)')
+  db.execute('CREATE TABLE id_todos_cat (
+              todo_id INTEGER,
+              cat_id INTEGER)')
 end
 
 def populate_tables(db)
-  db.execute('INSERT INTO todos (name, description) VALUES ("Köp mjölk", "3 liter mellanmjölk, eko")')
-  db.execute('INSERT INTO todos (name, description) VALUES ("Köp julgran", "En rödgran")')
-  db.execute('INSERT INTO todos (name, description) VALUES ("Pynta gran", "Glöm inte lamporna i granen och tomten")')
+  db.execute('INSERT INTO todos (name, description, state) VALUES ("Köp mjölk", "3 liter mellanmjölk, eko",false)')
+  db.execute('INSERT INTO todos (name, description, state) VALUES ("Köp julgran", "En rödgran",true)')
+  db.execute('INSERT INTO todos (name, description, state) VALUES ("Pynta gran", "Glöm inte lamporna i granen och tomten",false)')
+  db.execute('INSERT INTO categories (name) VALUES ("Buy")')
+  db.execute('INSERT INTO categories (name) VALUES ("Private")')
+  db.execute('INSERT INTO categories (name) VALUES ("Public")')
+  db.execute('INSERT INTO categories (name) VALUES ("Do")')
+  db.execute('INSERT INTO categories (name) VALUES ("Urgent")')
 end
 
 seed!(db)
